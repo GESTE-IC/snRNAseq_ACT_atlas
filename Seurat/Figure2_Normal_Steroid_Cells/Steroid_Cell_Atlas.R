@@ -122,4 +122,4 @@ DimPlot(dataset_normaladrenal, reduction = "umap", label = TRUE) + NoLegend()
 DimPlot(dataset_normaladrenal, reduction = "umap", group.by="orig.ident", label = TRUE)
 DimPlot(dataset_normaladrenal, reduction = "umap", group.by="celltype_integrated", label = F)
 
-saveRDS(dataset_normaladrenal, "/path/to/Seurat_objects/Merge/dataset_normal_adrenal_not_integrated_.RDS"))
+saveRDS(dataset_normaladrenal, "/path/to/Seurat_objects/Merge/dataset_normal_adrenal_not_integrated.RDS"))
