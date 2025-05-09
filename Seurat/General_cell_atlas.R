@@ -14,7 +14,6 @@ library(ggsci)
 library(monocle)
 library(garnett)
 library(org.Hs.eg.db)
-library(infercnv)
 library(clustree)
 
 dataset <- readRDS("/path/to/Seurat/objects/Merge/dataset_filtered.RDS")
