@@ -29,3 +29,4 @@ for (i in 2:length(seurat_obj)){
   list_to_merge[[i-1]] <- obj }
 
 dataset <- merge(obj1, y=list_to_merge, add.cell.ids=c(names_seurat))
+saveRDS(dataset, paste0(output_path, "Merge/dataset.RDS"))
