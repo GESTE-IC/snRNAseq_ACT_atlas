@@ -30,10 +30,10 @@ cds <- reduceDimension(cds, norm_method="none", reduction_method="DDRTree")
 # trajectory
 cds <- orderCells(cds)
 
-saveRDS(cds, "/path/to/Monocle/results/Cds_NormalAdrenal.RDS"))
+saveRDS(cds, "/path/to/Monocle/results/Cds_NormalAdrenal.RDS")
 
 ### DEG with pseudotime
 diff_test_res_all <- differentialGeneTest(cds, fullModelFormulaStr = "~sm.ns(Pseudotime)", cores = 1)
 diff_test_res_all <- diff_test_res_all[order(diff_test_res_all$qval),] # Suppl Table 4
 
-saveRDS(diff_test_res_all, "/path/to/Monocle/results/DEG_byPseudotime_NormalAdrenal.RDS"))
+saveRDS(diff_test_res_all, "/path/to/Monocle/results/DEG_byPseudotime_NormalAdrenal.RDS")
