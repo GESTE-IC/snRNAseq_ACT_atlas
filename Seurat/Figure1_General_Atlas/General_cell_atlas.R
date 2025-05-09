@@ -31,6 +31,8 @@ ElbowPlot(dataset, ndims = 100)
 dataset <- RunUMAP(dataset, dims = 1:50, verbose = FALSE)
 dataset <- FindNeighbors(dataset, dims = 1:50, verbose = FALSE)
 dataset <- FindClusters(dataset, resolution = c(0.8,1.0,1.2,1.4,1.6,1.8,2.0))
+
+# Test clustering stability
 clustering_info <- dataset@meta.data
 clustree(clustering_info, prefix="SCT_snn_res.")
 Idents(dataset) <- dataset$SCT_snn_res.1.2
