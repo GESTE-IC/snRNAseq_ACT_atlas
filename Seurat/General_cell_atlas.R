@@ -14,7 +14,11 @@ library(clustree)
 
 dataset <- readRDS("/path/to/Seurat/objects/Merge/dataset_filtered.RDS")
 
+
 ### Normalization - Dimensionality Reduction - Clustering
+
+# Scale RNA assay for plots
+dataset <- NormalizeData(dataset, normalization.method = "LogNormalize", scale.factor = 10000)
 
 # SCT Normalization
 dataset <- SCTransform(dataset, conserve.memory = TRUE, verbose = TRUE)
