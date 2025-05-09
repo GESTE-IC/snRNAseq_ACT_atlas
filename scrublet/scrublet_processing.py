@@ -14,7 +14,7 @@ plt.rcParams['font.sans-serif'] = 'Arial'
 plt.rc('font', size=14)
 plt.rcParams['pdf.fonttype'] = 42
 
-input_path = "/path/to/files.mtx"
+input_path = "/path/to/Scrublet/input" # contains matrix files formated in Filtering_Scrublet.R
 
 from os import listdir
 from os.path import isfile, join
