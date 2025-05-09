@@ -30,4 +30,10 @@ for (output in list_outputs) {
 }
 
 dataset <- dataset[,list_singletons]
-saveRDS(dataset, "/path/to/Seurat/objects/Merge/dataset_scrublet_filtered.RDS")
+
+# Filtering on nFeature & percent.mt
+
+dataset[["percent.mt"]] <- PercentageFeatureSet(dataset, pattern = "^MT-")
+dataset <- subset(dataset, subset = nFeature_RNA > 500 & nFeature_RNA < 8000 & percent.mt < 5)
+
+saveRDS(dataset, "/path/to/Seurat/objects/Merge/dataset_filtered.RDS")
