@@ -105,11 +105,11 @@ prop_ggplot <- ggplot(temp_cellprop_df_all, aes(x=sample,fill=cell_type, y=propo
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(),
         panel.background = element_blank(),
-        legend.key.size = unit(0.5, 'cm'), #change legend key size
-        legend.key.height = unit(0.5, 'cm'), #change legend key height
-        legend.key.width = unit(0.5, 'cm'), #change legend key width
-        legend.title = element_text(size=7), #change legend title font size
-        legend.text = element_text(size=7) #change legend text font size) + 
+        legend.key.size = unit(0.5, 'cm'),
+        legend.key.height = unit(0.5, 'cm'),
+        legend.key.width = unit(0.5, 'cm'),
+        legend.title = element_text(size=7), 
+        legend.text = element_text(size=7) + 
   xlab("Patient ID") +
   ylab("Cell Proportions")  +
   guides(fill=guide_legend(title="Cell Type")) +
