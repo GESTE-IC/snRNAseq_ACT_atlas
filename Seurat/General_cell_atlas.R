@@ -52,7 +52,7 @@ DimPlot(dataset, reduction = "umap", group.by = "histotype", label = FALSE)
 ### Clusters identification
 
 # DEG
-markers_cluster <- FindAllMarkers(dataset, only.pos=T, logfc.threshold = 0.25, min.pct = 0.1, test.use = "wilcox")
+markers_cluster <- FindAllMarkers(dataset, only.pos=T, logfc.threshold = 0.25, min.pct = 0.1, test.use = "wilcox", assay="RNA", slot="counts")
 
 # Garnett prediction for steroid and chromaffin cells
 classifier <- readRDS("adrenal_classifier.RDS") # reference to be downloaded on https://atlas.brotmanbaty.org/bbi/human-gene-expression-during-development/
@@ -111,6 +111,6 @@ dataset <- RenameIdents(dataset, new.cluster.ids)
 dataset$celltype_clusters <- dataset@active.ident
 
 # DEG for each cell type
-markers_cluster <- FindAllMarkers(dataset, only.pos=T,  logfc.threshold = 0.25, min.pct = 0.1, test.use = "wilcox") # top 100 in Suppl Table 2
+markers_cluster <- FindAllMarkers(dataset, only.pos=T,  logfc.threshold = 0.25, min.pct = 0.1, test.use = "wilcox", assay="RNA", slot="counts") # top 100 in Suppl Table 2
 
 saveRDS(dataset, "/path/to/Seurat/objects/Merge/dataset_filtered_normalized.RDS")
