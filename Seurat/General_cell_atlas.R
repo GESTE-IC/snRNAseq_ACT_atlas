@@ -118,4 +118,4 @@ dataset$celltype_clusters <- dataset@active.ident
 # DEG for each cell type
 markers_cluster <- FindAllMarkers(dataset, only.pos=T,  logfc.threshold = 0.25, min.pct = 0.1, test.use = "wilcox") # top 100 in Suppl Table 2
 
-saveRDS("/path/to/Seurat/objects/Merge/dataset_filtered_normalized.RDS")
+saveRDS(dataset, "/path/to/Seurat/objects/Merge/dataset_filtered_normalized.RDS")
