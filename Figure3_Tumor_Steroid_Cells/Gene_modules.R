@@ -39,19 +39,15 @@ nPC = 10
 n_top_genes = 50
 
 list_genes <- list()
-for (i in 1:32)
-{
+for (i in 1:32) {
   dataset_tmp <- dataset_list[[i]]
   ech <- as.character(unique(dataset_tmp$orig.ident))
   mat_PCA <- dataset_tmp@reductions$pca@feature.loadings[,1:nPC]
-  for (j in 1:nPC)
-  {
+  for (j in 1:nPC) {
     genes_pos <- names(sort(mat_PCA[,j], decreasing = T))[1:n_top_genes]
     genes_neg <- names(sort(mat_PCA[,j]))[1:n_top_genes]
     list_genes[[paste0(ech, "_PC", j, "_pos")]] <- genes_pos
-    list_genes[[paste0(ech, "_PC", j, "_neg")]] <- genes_neg
-  }
-}
+    list_genes[[paste0(ech, "_PC", j, "_neg")]] <- genes_neg } }
 
 
 ### Sorensen matrix 
@@ -108,26 +104,20 @@ list_color[["Gene modules"]] <-  c("GM1" = "#7A0403FF", "GM2" = "#DB3A07FF" , "G
                                    "GM5" = "#D2E935FF", "GM6" = "#1BD0D5FF", "GM7" = "#30123BFF",  "GM8" = "#4777EFFF")
 
 list_GM <- NULL
-for (group in 1 : length(unique(groups)))
-{
+for (group in 1 : length(unique(groups))) {
   sel <- names(groups)[which(groups == group)]
   list_GM_group <- list_genes[sel]
   samples <- unique(gsub("_.*", "", sel))
-  
   # unique genes by sample
   list_GM_by_sample <- list() 
-  for (sample in samples)
-  {
+  for (sample in samples) {
     genes_sample <- unique(unlist(list_GM_group[grep(sample, names(list_GM_group))]))
-    list_GM_by_sample[[sample]] <- genes_sample
-  }
-  
+    list_GM_by_sample[[sample]] <- genes_sample }
   # keep genes present in programs from >= 50% ech or >=2 samples
   table_recurrence <- sort(table(unlist(list_GM_by_sample)), decreasing=T)
   n_sample <- length(list_GM_by_sample)
   genes_sel <- names(table_recurrence)[which(table_recurrence >= max(2, n_ech/2))]
-  list_GM[[paste0("prog",group)]] <- genes_sel
-}
+  list_GM[[paste0("prog",group)]] <- genes_sel }
 
 names(list_GM) <- c("GM1_ZG", "GM5_ECM", "GM2_ZF1", "GM4_ZR", "GM3_ZF2", "GM6_Translation", "GM7_Mitosis", "GM8_Hypoxia")
 saveRDS(list_GM, "/path/to/GeneModules/results/Gene_modules.RDS")
