@@ -5,11 +5,6 @@ library(pheatmap)
 library(viridis)
 library(RColorBrewer)
 library(tibble)
-library(GSVA)
-library(xlsx)
-library(cowplot)
-library(cola)
-library(ggcorrplot)
 library(clusterProfiler)
 library(org.Hs.eg.db)
 library(msigdbr)
@@ -184,8 +179,24 @@ combined_enricher <- Nad_enricher
 combined_enricher@compareClusterResult <- rbind(combined_enricher@compareClusterResult, Go_enricher@compareClusterResult) 
 combined_enricher@compareClusterResult <- combined_enricher@compareClusterResult[order(combined_enricher@compareClusterResult$clusterID), ]
              
+
+### Add gene modules scores to Sn-RNAseq dataset
+
+# Add module score
+for (i in 1:length(list_prog)) {
+  program <- list_prog[i]
+  dataset <- AddModuleScore(dataset, features = program, name = names(program)) }
+col_to_replace <- grep("GM", colnames(dataset@meta.data))[1:8]
+for (i in col_to_replace) { colnames(dataset@meta.data)[i] <-  substr(colnames(dataset@meta.data)[i], 1, (nchar(colnames(dataset@meta.data)[i])-1) ) }
+
+# Assign cells to metaprogramme max
+test <- apply(dataset@meta.data[,names(list_prog)], 1, function(x) which(x == max(x)))
+dataset$GM_maj <- names(list_prog)[test]
+dataset$GM_maj[which(dataset$celltype_clusters != "Steroid cells")] <- NA
+
+
               
-### Figure 3
+### Figure 3 plots
 
 # Heatmap
 p_heatmap <- pheatmap(sor_matrix, clustering_method = "ward.D2", 
@@ -194,6 +205,62 @@ p_heatmap <- pheatmap(sor_matrix, clustering_method = "ward.D2",
 
 # DotPlot Enrichment analyses
 dotplot(combined_enricher, showCategory = 3, font.size = 8)
+
+# UMAP by gene module
+GM_colors <-  c( "#7A0403FF", "#DB3A07FF", "#FE9B2DFF", "#62FC6BFF", "#D2E935FF", "#1BD0D5FF", "#30123BFF", "#4777EFFF")
+p_umap_GM <- DimPlot(dataset, reduction = "umap", group.by = "GM_maj", raster = F, 
+        cols=GM_colors, na.value = "grey70") +
+  ggtitle("") 
+              
+# proportion of cells in each sample 
+dataset$orig.ident <- factor(dataset$orig.ident, 
+                             levels = c("ACC1a","ACC1b","ACC2a","ACC2b","ACC3","ACC4","ACC5","ACC6","ACC7","ACC8a","ACC8b",
+                                        "ACC9","ACC10","ACC11","ACC12","ACC13","ACC14","ACC15","ACC16","ACC17",
+                                        "ACA1","ACA2","ACA3","ACA4","ACA5","ACA6","ACA7","ACA8",
+                                        "PBMAH1","PBMAH2","PBMAH3","PBMAH4","PBMAH5","PBMAH6"))
+Idents(dataset) <- dataset$celltype_clusters
+dataset_test <- subset(dataset, idents = "Steroid cells")
+Idents(dataset_test) <- dataset_test$celltype_ScibetGarnett
+dataset_test <- subset(dataset_test, idents = "Steroid cells")
+temp_Names<- unique(as.character(dataset_test$orig.ident))
+temp_colname<- "GM_maj"
+temp_colour_pal <- data.frame(metaprog_maj = c("GM1_ZG", "GM2_ZF1", "GM3_ZF2", "GM4_ZR", "GM5_ECM", "GM6_Translation", "GM7_Mitosis", "GM8_Hypoxia"),
+                                colour = GM_colors))
+temp_cellprop_df_all <- NULL
+for(i in c(1:length(temp_Names))) 
+{
+  # i=1
+  temp_filtered_summary <- subset(dataset_test@meta.data, orig.ident == temp_Names[i])
+  temp_cellprop_df <- data.frame(unclass(table(temp_filtered_summary[,temp_colname])))
+  temp_cellprop_df_all <- rbind(temp_cellprop_df_all,
+                                (temp_cellprop_df <- data.frame(sample = rep(temp_Names[i], times = length(row.names(temp_cellprop_df))),
+                                                                metaprog_maj = row.names(temp_cellprop_df), value = temp_cellprop_df[,1],
+                                                                proportions = temp_cellprop_df[,1]/colSums(temp_cellprop_df),
+                                                                subtype = unique(temp_filtered_summary$histotype))))
+}
+temp_cellprop_df_all$metaprog_maj <- factor(temp_cellprop_df_all$GM_maj, levels=temp_colour_pal$GM_maj)
+temp_cellprop_df_all$subtype <- factor(temp_cellprop_df_all$subtype, levels=c("ACC C1A","ACC C1B","ACA", "PBMAH", "Normal adrenal"))
+p_prop <- ggplot(temp_cellprop_df_all, aes(x=sample, fill=GM_maj, y=proportions)) +
+  geom_bar(stat="identity", color = "black") +
+  theme(axis.text.x=element_text(angle=45, size=7, hjust=1),
+        strip.background = element_rect(colour="black", fill="white", linewidth=0.5, linetype="solid"),
+        strip.text.x = element_text(size=8, face = "bold"),
+        axis.text = element_text(size=7), 
+        axis.title = element_text(size=8, face = "bold"),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        legend.key.size = unit(0.5, 'cm'), 
+        legend.key.height = unit(0.5, 'cm'), 
+        legend.key.width = unit(0.5, 'cm'), 
+        legend.title = element_text(size=7),
+        legend.text = element_text(size=7)) + 
+  xlab("Patient ID") +
+  ylab("GM Proportions among Steroid cells")  +
+  guides(fill=guide_legend(title="Gene modules")) +
+  scale_fill_manual(values = as.vector(temp_colour_pal$colour)) +
+  facet_grid(. ~ subtype, scales="free", space = "free")
+
 
 
 
