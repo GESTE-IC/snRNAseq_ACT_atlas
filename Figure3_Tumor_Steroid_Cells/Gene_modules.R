@@ -107,29 +107,30 @@ metadata[,"Gene modules"] <- factor(as.character(metadata[,"Gene modules"]),
 list_color[["Gene modules"]] <-  c("GM1" = "#7A0403FF", "GM2" = "#DB3A07FF" , "GM3" = "#FE9B2DFF" , "GM4" = "#62FC6BFF",
                                    "GM5" = "#D2E935FF", "GM6" = "#1BD0D5FF", "GM7" = "#30123BFF",  "GM8" = "#4777EFFF")
 
-list_prog <- NULL
+list_GM <- NULL
 for (group in 1 : length(unique(groups)))
 {
   sel <- names(groups)[which(groups == group)]
-  list_prog_group <- list_genes[sel]
+  list_GM_group <- list_genes[sel]
   samples <- unique(gsub("_.*", "", sel))
   
   # unique genes by sample
-  list_prog_by_sample <- list() 
+  list_GM_by_sample <- list() 
   for (sample in samples)
   {
-    genes_sample <- unique(unlist(list_prog_group[grep(sample, names(list_prog_group))]))
-    list_prog_by_sample[[sample]] <- genes_sample
+    genes_sample <- unique(unlist(list_GM_group[grep(sample, names(list_GM_group))]))
+    list_GM_by_sample[[sample]] <- genes_sample
   }
   
   # keep genes present in programs from >= 50% ech or >=2 samples
-  table_recurrence <- sort(table(unlist(list_prog_by_sample)), decreasing=T)
-  n_sample <- length(list_prog_by_sample)
+  table_recurrence <- sort(table(unlist(list_GM_by_sample)), decreasing=T)
+  n_sample <- length(list_GM_by_sample)
   genes_sel <- names(table_recurrence)[which(table_recurrence >= max(2, n_ech/2))]
-  list_prog[[paste0("prog",group)]] <- genes_sel
+  list_GM[[paste0("prog",group)]] <- genes_sel
 }
 
-names(list_prog) <- c("GM1_ZG", "GM5_ECM", "GM2_ZF1", "GM4_ZR", "GM3_ZF2", "GM6_Translation", "GM7_Mitosis", "GM8_Hypoxia")
+names(list_GM) <- c("GM1_ZG", "GM5_ECM", "GM2_ZF1", "GM4_ZR", "GM3_ZF2", "GM6_Translation", "GM7_Mitosis", "GM8_Hypoxia")
+saveRDS(list_GM, "/path/to/GeneModules/results/Gene_modules.RDS")
 
 
 ### Overrepresentation analysis
@@ -194,7 +195,7 @@ test <- apply(dataset@meta.data[,names(list_prog)], 1, function(x) which(x == ma
 dataset$GM_maj <- names(list_prog)[test]
 dataset$GM_maj[which(dataset$celltype_clusters != "Steroid cells")] <- NA
 
-
+saveRDS("/path/to/Seurat_objects/Merge/dataset_filtered_normalized_annotated_GM.RDS")
               
 ### Figure 3 plots
 
