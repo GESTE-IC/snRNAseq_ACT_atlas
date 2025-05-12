@@ -18,7 +18,7 @@ dataset_fibro <- readRDS("/path/to/Seurat_objects/Merge/dataset_fibroblasts.RDS"
 Go_enricher <- readRDS("/path/to/enrichment/results/GO_enricher_fibroblasts.RDS")
 
 cds <- readRDS("/path/to/Monocle/results/Cds_Fibroblasts.RDS")
-diff_test_res_all <- readRDS("/path/to/Monocle/results/DEG_byPseudotime_Fibroblasts.RDS")
+
 
 
 ### Clustree
