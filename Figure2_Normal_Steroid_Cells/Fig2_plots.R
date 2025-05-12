@@ -16,7 +16,7 @@ library(clustree)
 
 dataset.combined <- readRDS("/path/to/Seurat_objects/Merge/dataset_normal_adrenal_integrated.RDS")
 dataset_normaladrenal <- readRDS("/path/to/Seurat_objects/Merge/dataset_normal_adrenal_not_integrated.RDS")
-reactome__enricher <- readRDS("/path/to/enrichment/results/Reactome_enricher_normal_adrenal.RDS")
+reactome_enricher <- readRDS("/path/to/enrichment/results/Reactome_enricher_normal_adrenal.RDS")
 
 cds <- readRDS("/path/to/Monocle/results/Cds_NormalAdrenal.RDS")
 diff_test_res_all <- readRDS("/path/to/Monocle/results/DEG_byPseudotime_NormalAdrenal.RDS")
