@@ -65,7 +65,7 @@ dataset_fibro <- RenameIdents(dataset_fibro, new.cluster.ids)
 dataset_fibro$cell_type <- dataset_fibro@active.ident
 saveRDS(dataset_fibro, "/path/to/Seurat_objects/Merge/dataset_fibroblasts.RDS")
 
-# Aggragate clusters
+# Aggregate clusters
 new.cluster.ids <- c("Resident fibroblasts","CAF","CAF","CAF","Resident fibroblasts","Resident fibroblasts", "Pericytes", "Adipocytes", "Schwann cells")
 names(new.cluster.ids) <- levels(dataset_fibro)
 dataset_fibro <- RenameIdents(dataset_fibro, new.cluster.ids)
