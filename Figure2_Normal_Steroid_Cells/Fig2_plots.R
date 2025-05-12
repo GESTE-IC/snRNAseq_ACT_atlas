@@ -51,6 +51,7 @@ features <- c("CYP11B2", "DACH1", "ANO4", "HSD3B2","CYP11B1","CYP17A1", "SULT2A1
 
 dataset.combined$celltype_reorder <- factor(dataset.combined$celltype_integrated, 
                                             levels = c("HSP+ cells", "ZR cells", "ZF cells", "Intermediate-state cells", "ZG cells", "ZG cells - CYP11B2+"))
+Idents(dataset.combined) <- dataset.combined$celltype_reorder 
 
 p_Vln_stacked <- VlnPlot(dataset.combined, features = features,  cols = my.cell.type.cols, fill.by = 'ident', assay = "RNA", pt.size =, 0, adjust=1.5, stack = TRUE) +
   ggtitle("") +
