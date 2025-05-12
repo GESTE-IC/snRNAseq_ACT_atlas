@@ -30,10 +30,18 @@ cds <- reduceDimension(cds, norm_method="none", reduction_method="DDRTree")
 # trajectory
 cds <- orderCells(cds)
 
+# Reorder with resident fibroblasts as starting point
+GM_state <- function(cds_data){ T0_counts <- table(pData(cds_data)$State, pData(cds_data)$cell_type)[,"Resident fibroblasts 1"]
+return(as.numeric(names(T0_counts)[which(T0_counts == max(T0_counts))])) }
+cds <- orderCells(cds, root_state = GM_state(cds))
+
 saveRDS(cds, "/path/to/Monocle/results/Cds_Fibroblasts.RDS")
 
 
 ### DEG with pseudotime
+
+BEAM_res_branch_1 <- BEAM(cds, branch_point = 1)
+BEAM_res_branch_2 <- BEAM(cds, branch_point = 2)
 
 diff_test_res_all <- differentialGeneTest(cds, fullModelFormulaStr = "~sm.ns(Pseudotime)", cores = 1)
 diff_test_res_all <- diff_test_res_all[order(diff_test_res_all$qval),] # Suppl Table 9
