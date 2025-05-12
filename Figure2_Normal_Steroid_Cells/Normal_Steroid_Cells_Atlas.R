@@ -54,7 +54,7 @@ dataset.combined <- FindClusters(dataset.combined, resolution = c(0.1,0.2,0.3,0.
 # Test clustering stability
 clustering_info <- dataset.combined@meta.data
 clustree(clustering_info, prefix="integrated_snn_res.")
-Idents(dataset.combined) <- dataset$integrated_snn_res.0.3
+Idents(dataset.combined) <- dataset.combined$integrated_snn_res.0.3
 
 # UMAP visualization
 DimPlot(dataset.combined, reduction = "umap", label = TRUE)
