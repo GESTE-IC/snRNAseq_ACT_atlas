@@ -1,7 +1,7 @@
 library(Matrix)
 library(dplyr)
 library(Seurat)
-#library(SeuratData)
+library(SeuratData)
 library(patchwork)
 library(sctransform)
 library(ggplot2)
