@@ -39,7 +39,7 @@ p_umap_celltype <- DimPlot(dataset_lympho, reduction = "umap", group.by = "cell_
 
 features <- c("IGLL5", "FCRL5", "IL7R", "RUNX2", "GNLY", "KLRF1", "TOX", "CCL5")
 
-dataset_lympho$celltype_reorder <- factor(dataset_lympho$new_annot, levels = c("Exhausted T cells","Unassigned T cells", "NK-like T cells", "Naive/Memory T cells", "Plasma B cells")) 
+dataset_lympho$celltype_reorder <- factor(dataset_lympho$cell_type, levels = c("Exhausted T cells","Unassigned T cells", "NK-like T cells", "Naive/Memory T cells", "Plasma B cells")) 
  
 p_Vln_stacked <- VlnPlot(dataset_lympho, features = features,  cols = rev(my.cell.type.cols), fill.by = 'ident', assay = "RNA", pt.size =, 0, adjust=1, stack = TRUE) +
   ggtitle("") +
