@@ -80,10 +80,10 @@ dotplot(Go_enricher, showCategory = 4, font.size = 10)
  
 ### Trajectory DDRTree
 
-p_DDRT_Pseudotime <- plot_cell_trajectory(cds_endoth, color_by = "Pseudotime", show_branch_points = T, show_tree = TRUE, cell_size = 0.5) +  
+p_DDRT_Pseudotime <- plot_cell_trajectory(cds, color_by = "Pseudotime", show_branch_points = T, show_tree = TRUE, cell_size = 0.5) +  
         scale_color_viridis()
 
-p_DDRT_Celltype <-  plot_cell_trajectory(cds_endoth, color_by = "cell_type", cell_size = 0.5) + 
+p_DDRT_Celltype <-  plot_cell_trajectory(cds, color_by = "cell_type", cell_size = 0.5) + 
   scale_color_manual(values = c("#46F884FF", "#7A0403FF", "#E1DD37FF",  "#F05B12FF" ,"#3E9BFEFF", "#30123BFF"))
 
 
@@ -91,7 +91,7 @@ p_DDRT_Celltype <-  plot_cell_trajectory(cds_endoth, color_by = "cell_type", cel
 
 my_genes <- c("ANGPT2", "VWF", "KCNQ3", "LAMB1", "ANO2", "ENPP2")
 
-cds_subset <- cds_endoth[my_genes,]
+cds_subset <- cds[my_genes,]
 p_genes_branch <- plot_genes_branched_pseudotime(cds_subset, branch_point = 2, color_by = "cell_type", ncol = 2, panel_order = c("VWF", "ANGPT2", "ANO2", "KCNQ3", "LAMB1", "ENPP2")) +
   scale_color_manual(values = c( "#46F884FF", "#7A0403FF", "#E1DD37FF",  "#F05B12FF" ,"#3E9BFEFF", "#30123BFF")) 
   
