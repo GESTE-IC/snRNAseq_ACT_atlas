@@ -44,7 +44,7 @@ dataset_endoth$celltype_reorder <- factor(dataset_endoth$new_annot, levels = c("
  
 p_Vln_stacked <- VlnPlot(dataset_endoth, features = features,  cols = my.cell.type.cols, fill.by = 'ident', assay = "RNA", pt.size =, 0, adjust=1.5, stack = TRUE) +
   ggtitle("") +
-  scale_y_discrete(limits = levels(dataset$celltype_reorder)) +
+  scale_y_discrete(limits = levels(dataset_endoth$celltype_reorder)) +
   NoLegend() +
   theme(plot.title = element_text(size = 15, hjust = 0.5), axis.title = element_blank())
 
