@@ -40,7 +40,7 @@ p_umap_celltype <- DimPlot(dataset_endoth, reduction = "umap", group.by = "cell_
 
 features <- c("NRP1", "ADGRL2", "VWF","ANGPT2", "MMRN1","PROX1", "FBLN5","GJA5", "HSPB1", "HSPA1A", "PLAT","KCNIP4")
 
-dataset_endoth$celltype_reorder <- factor(dataset_endoth$new_annot, levels = c("EC-venous", "EC-HSP+","EC-arterial", "EC-lymphatic", "TEC2", "TEC1")) 
+dataset_endoth$celltype_reorder <- factor(dataset_endoth$cell_type, levels = c("EC-venous", "EC-HSP+", "EC-arterial", "EC-lymphatic", "TEC2", "TEC1")) 
  
 p_Vln_stacked <- VlnPlot(dataset_endoth, features = features,  cols = my.cell.type.cols, fill.by = 'ident', assay = "RNA", pt.size =, 0, adjust=1.5, stack = TRUE) +
   ggtitle("") +
