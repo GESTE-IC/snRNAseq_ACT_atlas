@@ -67,6 +67,10 @@ saveRDS(dataset_myelo, "/path/to/Seurat_objects/Merge/dataset_myeloid_cells.RDS"
 
 # Overrepresentation analysis
 
+dataset_myelo$ident_enrich[which(dataset_myelo$ident_enrich %in% c("TAM1", "TAM2"))] <- "TAM"
+dataset_myelo$ident_enrich[which(dataset_myelo$ident_enrich %in% c("Resident macrophages 1", "Resident macrophages 2"))] <- "Resident macrophages"
+Idents(dataset_myelo) <- dataset_myelo$ident_enrich
+markers_cluster <- FindAllMarkers(dataset_myelo, only.pos = T, logfc.threshold = 0.25, min.pct = 0.1, test.use = "wilcox", assay="RNA", slot="counts")
 markers_cluster <- markers_cluster[which(markers_cluster$p_val_adj<0.05),]
 markers_cluster$cluster <- as.character(markers_cluster$cluster)
 
