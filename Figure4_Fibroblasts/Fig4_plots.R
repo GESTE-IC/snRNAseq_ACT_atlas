@@ -37,21 +37,21 @@ p_umap_celltype <- DimPlot(dataset_fibro, reduction = "umap", group.by = "cell_t
 
 ### Stacked Violin Plot for marker genes
 
-features <- c("FN1", "PDGFRB", "HDAC9", "FGF7", "EFEMP1", "POSTN", "PLA2G5", "GJC1", "ADIPOQ","PLIN1", "CSPG4","MYH11", "PRIMA1","GINS3", "NR4A1", "COL4A4","COL4A3") 
+features <- c("FN1", "PDGFRB", "HDAC9", "FGF7", "EFEMP1", "POSTN", "PLA2G5", "GJC1", "ADIPOQ", "PLIN1", "CSPG4", "MYH11", "PRIMA1", "GINS3", "NR4A1", "COL4A4", "COL4A3") 
 
 dataset_fibro$celltype_reorder <- factor(dataset_fibro$new_annot, levels = c("Resident fibroblasts 3", "Resident fibroblasts 2", "Resident fibroblasts 1",
                                                                       "Schwann cells", "Pericytes", "Adipocytes",
  
 p_Vln_stacked <- VlnPlot(dataset_fibro, features = features,  cols = my.cell.type.cols, fill.by = 'ident', assay = "RNA", pt.size =, 0, adjust=1.5, stack = TRUE) +
   ggtitle("") +
-  scale_y_discrete(limits = levels(dataset$celltype_reorder)) +
+  scale_y_discrete(limits = levels(dataset_fibro$celltype_reorder)) +
   NoLegend() +
   theme(plot.title = element_text(size = 15, hjust = 0.5), axis.title = element_blank())
 
 
 ### Proportion of cells in each histotype
 
-df<- as.data.frame(table(dataset_fibro$histotype, dataset_fibro$cell_type))
+df <- as.data.frame(table(dataset_fibro$histotype, dataset_fibro$cell_type))
 prop_ggplot <- ggplot(df, aes(Var1, Freq, fill = Var2)) +
   geom_bar(stat = "identity", position = "fill", color = "black") +
   scale_fill_manual(values = c("#28BBECFF", "#466BE3FF", "#30123BFF", "#31F299FF", "#A2FC3CFF", "#EDD03AFF", "#FB8022FF", "#D23105FF", "#7A0403FF")) + 
