@@ -21,4 +21,4 @@ for (i in 1:8) {
   param_CIT <- ssgseaParam(counts_CIT, list_prog[i])
   res_deconv[["CIT"]] <- gsva(param_CIT) }
 
-saveRDS(res_deconv, ""/path/to/Deconvolution/results/Deconvolution_GM.RDS")
+saveRDS(res_deconv, "/path/to/Deconvolution/results/Deconvolution_GM.RDS")
