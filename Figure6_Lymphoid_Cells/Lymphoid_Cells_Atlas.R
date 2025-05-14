@@ -54,7 +54,7 @@ DimPlot(dataset_lympho, reduction = "umap", group.by = "orig.ident", label = TRU
 ### Clusters identification
 
 # DEG
-markers_cluster <- FindAllMarkers(dataset_lympho, assay="RNA", slot="counts", test.use="wilcox", logfc.threshold=0.25, only.pos=T) # top100 in Suppl Table 10
+markers_cluster <- FindAllMarkers(dataset_lympho, assay="RNA", slot="counts", test.use="wilcox", logfc.threshold=0.25, only.pos=T) # top100 in Suppl Table 12
 
 # Rename clusters
 new.cluster.ids <- c("Exhausted T cells", "Unassigned T cells", "Naive/Memory T cells", "NK-like T cells", "Plasma B cells")
