@@ -39,7 +39,7 @@ p_umap_celltype <- DimPlot(dataset_fibro, reduction = "umap", group.by = "cell_t
 
 features <- c("FN1", "PDGFRB", "HDAC9", "FGF7", "EFEMP1", "POSTN", "PLA2G5", "GJC1", "ADIPOQ", "PLIN1", "CSPG4", "MYH11", "PRIMA1", "GINS3", "NR4A1", "COL4A4", "COL4A3") 
 
-dataset_fibro$celltype_reorder <- factor(dataset_fibro$new_annot, levels = c("Resident fibroblasts 3", "Resident fibroblasts 2", "Resident fibroblasts 1",
+dataset_fibro$celltype_reorder <- factor(dataset_fibro$cell_type, levels = c("Resident fibroblasts 3", "Resident fibroblasts 2", "Resident fibroblasts 1",
                                                                       "Schwann cells", "Pericytes", "Adipocytes",
  
 p_Vln_stacked <- VlnPlot(dataset_fibro, features = features,  cols = my.cell.type.cols, fill.by = 'ident', assay = "RNA", pt.size =, 0, adjust=1.5, stack = TRUE) +
