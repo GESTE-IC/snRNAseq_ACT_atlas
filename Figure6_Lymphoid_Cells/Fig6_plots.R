@@ -91,7 +91,7 @@ p_DDRT_Celltype <-  plot_cell_trajectory(cds, color_by = "cell_type", cell_size 
 my_genes <- c("THEMIS", "INPP4B", "KLRF1", "KLRD1", "GNLY",  "BNC2") 
 
 cds_subset <- cds[my_genes,]
-p_genes_branch <- plot_genes_branched_pseudotime(cds_subset, branch_point = 2, color_by = "cell_type", ncol = 2, panel_order = c("KLRF1", "KLRD1", "GNLY", "BNC2", "INPP4B", "THEMIS")) +
+p_genes_branch <- plot_genes_branched_pseudotime(cds_subset, color_by = "cell_type", ncol = 2, panel_order = c("KLRF1", "KLRD1", "GNLY", "BNC2", "INPP4B", "THEMIS")) +
   scale_color_manual(values = c( "#46F884FF", "#7A0403FF", "#E1DD37FF",  "#F05B12FF" ,"#3E9BFEFF", "#30123BFF")) 
   
               
