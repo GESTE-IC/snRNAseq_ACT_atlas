@@ -15,7 +15,7 @@ library(viridis)
 library(clustree)
 
 dataset_macro <- readRDS("/path/to/Seurat_objects/Merge/dataset_myeloid_cells.RDS")
-Go_enricher <- readRDS("/path/to/enrichment/results/GO_enricher_myeloid_cellss.RDS")
+Go_enricher <- readRDS("/path/to/enrichment/results/GO_enricher_myeloid_cells.RDS")
 
 cds <- readRDS("/path/to/Monocle/results/Cds_Myeloid_Cells.RDS")
 
