@@ -64,7 +64,7 @@ dataset_train <- subset(dataset, cells=cells_train)
 counts_train <- as.matrix(dataset_train@assays$RNA@data)
 counts_train <- cbind(rownames(counts_train),counts_train)
 colnames(counts_train) <- c("Gene", dataset_train@meta.data[,"celltype_deconv"])
-write.table(counts_train, file = "path/to/cibersort/ref_matrices_pseudobulk/refmatrix_celltype_deconv.txt", sep="\t", dec =".", col.names = T, row.names = F, quote = F)
+write.table(counts_train, file = "path/to/cibersort/ref_matrices/refmatrix_celltype_deconv.txt", sep="\t", dec =".", col.names = T, row.names = F, quote = F)
 
 # create pseudo-bulk validation dataset
 dataset_test <- subset(dataset, cells=cells_test)
@@ -77,7 +77,7 @@ samples <- colnames(counts_test)
 counts_test <- as.matrix(counts_test)
 counts_test<- cbind(rownames(counts_test),counts_test)
 colnames(counts_test)<- c("Gene", samples)
-write.table(counts_test, file = "path/to/cibersort/ref_matrices_pseudobulk/pseudobulk_celltype_deconv.txt", sep="\t", dec =".", col.names = T, row.names = F, quote = F)
+write.table(counts_test, file = "path/to/cibersort/ref_matrices/pseudobulk_celltype_deconv.txt", sep="\t", dec =".", col.names = T, row.names = F, quote = F)
 
 
 ### Pseudobulk results analyses
@@ -85,7 +85,7 @@ write.table(counts_test, file = "path/to/cibersort/ref_matrices_pseudobulk/pseud
 col <- colorRampPalette(c("blue", "white", "darkred"))(20)
 
 # load results estimated proportions
-res_cibersort <- read.csv2("path/to/cibersort/results/Pseudobulk_celltype_deconv/CIBERSORTx_Adjusted.txt", header=T, sep = "\t", dec=".")
+res_cibersort <- read.csv2("path/to/cibersort/results/pseudobulk_celltype_deconv/CIBERSORTx_Adjusted.txt", header=T, sep = "\t", dec=".")
 rownames(res_cibersort)<- res_cibersort$Mixture
 res_cibersort<- res_cibersort[,2:(ncol(res_cibersort)-3)]
 
