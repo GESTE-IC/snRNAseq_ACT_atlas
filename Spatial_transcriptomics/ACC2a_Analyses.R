@@ -57,7 +57,7 @@ new.cluster.ids <- c("cluster1", "cluster2", "cluster3")
 names(new.cluster.ids) <- levels(ACC2a)
 ACC2a <- RenameIdents(ACC2a, new.cluster.ids)
 
-# DEG - top 100 in Suppl Table 18
+# DEG - top 100 in Suppl Table 17
 ACC2a_markers <- FindAllMarkers(ACC2a, only.pos = TRUE, min.pct = 0.1, logfc.threshold = 0.25, verbose = TRUE, assay = "Spatial", slot = "data")
 
 
