@@ -20,7 +20,7 @@ Idents(dataset_fibro) <- dataset_fibro$celltype_ScibetGarnett
 dataset_fibro <- subset(dataset_fibro, idents="CAF") 
 
 
-### Normalization & Integration 
+### Normalization
 
 DefaultAssay(dataset_fibro) <- "RNA"
 dataset_fibro[['SCT']] <- NULL
