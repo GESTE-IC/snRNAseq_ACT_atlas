@@ -20,7 +20,7 @@ Idents(dataset_myelo) <- dataset_myelo$celltype_ScibetGarnett
 dataset_myelo <- subset(dataset_myelo, idents="Macrophage")
 
 
-### Normalization & Integration 
+### Normalization
 
 DefaultAssay(dataset_myelo) <- "RNA"
 dataset_myelo[['SCT']] <- NULL
