@@ -78,4 +78,30 @@ counts_test <- as.matrix(counts_test)
 counts_test<- cbind(rownames(counts_test),counts_test)
 colnames(counts_test)<- c("Gene", samples)
 write.table(counts_test, file = "path/to/cibersort/ref_matrices_pseudobulk/pseudobulk_celltype_deconv.txt", sep="\t", dec =".", col.names = T, row.names = F, quote = F)
-                         
+
+
+### Pseudobulk results analyses
+
+col <- colorRampPalette(c("blue", "white", "darkred"))(20)
+
+# load results estimated proportions
+res_cibersort <- read.csv2("path/to/cibersort/results/Pseudobulk_celltype_deconv/CIBERSORTx_Adjusted.txt", header=T, sep = "\t", dec=".")
+rownames(res_cibersort)<- res_cibersort$Mixture
+res_cibersort<- res_cibersort[,2:(ncol(res_cibersort)-3)]
+
+# load real proportions
+res_ref <- read.table("path/to/cibersort/results/Real_prop_celltype_deconv.txt") header=T)
+res_ref_order<- res_ref[rownames(res_cibersort), colnames(res_cibersort)]
+
+# rename cell pop
+colnames(res_cibersort) <- paste0(colnames(res_cibersort),"_estimated")
+colnames(res_ref_order) <- paste0(colnames(res_ref_order),"_observed")
+
+# correlation plot
+M_cor <- cor(res_cibersort, res_ref_order)
+r_cor_global <- cor.test(as.matrix(res_cibersort), as.matrix(res_ref_order))
+corrplot(M_cor, method="circle", order="hclust", type="upper", 
+           tl.col="black", tl.srt=45, col=col,
+           # title = paste("r =", round(r_cor_global$estimate,2)),
+           mar = c(1, 1, 2, 1))
+                            
