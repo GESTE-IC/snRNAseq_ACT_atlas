@@ -20,7 +20,7 @@ Idents(dataset_lympho) <- dataset_lympho$celltype_ScibetGarnett
 dataset_lympho <- subset(dataset_lympho, idents=c("B.cell","NK","T.cell")) 
 
 
-### Normalization & Integration 
+### Normalization
 
 DefaultAssay(dataset_lympho) <- "RNA"
 dataset_lympho[['SCT']] <- NULL
