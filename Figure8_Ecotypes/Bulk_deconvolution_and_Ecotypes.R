@@ -24,16 +24,16 @@ annot <- readRDS("/path/to/clinical/annotations/clinical_annotation_3cohorts.RDS
 
 res_GM <- readRDS("/path/to/Deconvolution/results/Deconvolution_GM.RDS")
 
-res_cibersort_TCGA <-  read.csv2("/path/to/Cibersort/results/TCGA/CIBERSORTx_Adjusted.txt", sep="\t")
+res_cibersort_TCGA <-  read.csv2("/path/to/cibersort/results/TCGA/CIBERSORTx_Adjusted.txt", sep="\t")
 rownames(res_cibersort_TCGA) <- res_cibersort_TCGA$Mixture
 celltypes <- setdiff(colnames(res_cibersort_TCGA), c("Mixture","P.value","Correlation","RMSE"))
 res_cibersort_TCGA[,celltypes] <- apply(res_cibersort_TCGA[,celltypes], 2, function(x) as.numeric(x))
                                        
-res_cibersort_CIT <-  read.csv2("/path/to/Cibersort/results/CIT/CIBERSORTx_Adjusted.txt", sep="\t")
+res_cibersort_CIT <-  read.csv2("/path/to/cibersort/results/CIT/CIBERSORTx_Adjusted.txt", sep="\t")
 rownames(res_cibersort_CIT) <- res_cibersort_CIT$Mixture
 res_cibersort_CIT[,celltypes] <- apply(res_cibersort_CIT[,celltypes], 2, function(x) as.numeric(x))
                                         
-res_cibersort_FFPE <-  read.csv2("/path/to/Cibersort/results/FFPE/CIBERSORTx_Adjusted.txt", sep="\t")
+res_cibersort_FFPE <-  read.csv2("/path/to/cibersort/results/FFPE/CIBERSORTx_Adjusted.txt", sep="\t")
 rownames(res_cibersort_FFPE) <- res_cibersort_FFPE$Mixture
 res_cibersort_FFPE[,celltypes] <- apply(res_cibersort_FFPE[,celltypes], 2, function(x) as.numeric(x))
 
@@ -169,7 +169,8 @@ group_consensus2[which(group_consensus == "Eco2")] <- "Eco4"
 group_consensus2[which(group_consensus == "Eco3")] <- "Eco5"
 group_consensus2[which(group_consensus == "Eco4")] <- "Eco1"
 group_consensus2[which(group_consensus == "Eco5")] <- "Eco3"
-
+saveRDS(group_consensus2, "path/to/Ecotypes/results/Ecotypes_consensus.RDS")
+                                        
 cellpop <- p1$tree_col$labels
 cellorder <- p1$tree_col$order
 group_hclust <- cutree(p1$tree_col, k=5)
