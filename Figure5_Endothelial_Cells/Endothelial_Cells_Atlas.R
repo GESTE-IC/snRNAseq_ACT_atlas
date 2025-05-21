@@ -20,7 +20,7 @@ Idents(dataset_endoth) <- dataset_endoth$celltype_ScibetGarnett
 dataset_endoth <- subset(dataset_endoth, idents="Endothelial.cell") 
 
 
-### Normalization & Integration 
+### Normalization
 
 DefaultAssay(dataset_endoth) <- "RNA"
 dataset_endoth[['SCT']] <- NULL
