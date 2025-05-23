@@ -3,12 +3,16 @@
 # 10X SpaceRanger pipeline
 # version: spaceranger-1.3.1
 
+### NAd4
+
 input_path="/path/to/fastq"
 spaceranger="/path/to/space/ranger/spaceranger"
 transcriptome_ref="path/to/refdata-gex-GRCh38-2020-A"
 probes_ref="/path/to/probe_sets/Visium_Human_Transcriptome_Probe_Set_v1.0_GRCh38-2020-A.csv"
-ID_sample="sample_to_process"
+ID_sample="NAd4"
 output_path="path/to/output"
+
+cd $output_path
 
 $spaceranger count --id=$ID_sample
                   --transcriptome=$transcriptome_ref \ 
@@ -21,3 +25,18 @@ $spaceranger count --id=$ID_sample
                   --loupe-alignment="/my/path/to/loupe/alignment/file/V10S29-130-B1-mysamplename.json" \
                   --localcores=8 \ #allowed cores in localmode
                   --localmem=64 \ #allowed memory in localmode
+
+
+### ACC2
+
+input_path="/path/to/fastq"
+spaceranger="/path/to/space/ranger/spaceranger"
+transcriptome_ref="path/to/refdata-gex-GRCh38-2020-A"
+ID_sample="NAd4"
+output_path="path/to/output"
+
+cd $output_path
+
+$spaceranger count --id=$ID1 \
+                  --transcriptome=$transcriptome_mRNA \
+                  --fastqs=$path_fastq
