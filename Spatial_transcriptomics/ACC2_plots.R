@@ -3,7 +3,7 @@ library(ggplot2)
 library(patchwork)
 library(viridis)
 
-ACC2 <- readRDS("/path/to/results/ACC2a_annot.RDS")
+ACC2 <- readRDS("/path/to/results/ACC2_annot.RDS")
 
 figure_dir <- "/path/to/figures/"
 sample_name <- "ACC2_"
