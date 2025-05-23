@@ -20,7 +20,7 @@ from matplotlib import rcParams
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-st_data_folder = "/path/to/ACC2a/count/matrix"
+st_data_folder = "/path/to/ACC2/count/matrix"
 sc_data_folder = "/path/to/singlecell/ref/count/matrix/and/ref/annotation/table"
 results_data_folder = "/path/to/results"
 ref_run_name = f'{results_data_folder}/reference_signatures'
