@@ -99,6 +99,31 @@ Reactome_enricher@compareClusterResult$Description <- Reactome_enricher@compareC
 saveRDS(Reactome_enricher, "/path/to/enrichment/results/Reactome_enricher_normal_adrenal.RDS")
 
 
+### Prepare matrix for deconvolution
+
+N <- 1000
+id <- "celltype_integrated" 
+counts <- allsamp@assays$RNA@counts
+celltypes <- unique(allsamp@meta.data[, id])
+sample_list <- c()
+for (celltype in celltypes) {
+  cells <- rownames(allsamp@meta.data)[which(allsamp@meta.data[, id] == celltype)]
+  if (length(cells)>N) { sampled_id = sample(cells, N) }
+  if (length(cells)<=N) { sampled_id = cells }
+  sample_list <- c(sample_list, sampled_id)
+}
+sampled_counts <- counts[, sample_list]
+sampled_counts <- t(as.matrix(sampled_counts))
+file <- paste0("SC_Normal_Adrenal_Count_sampled_", N, "_", id, "_", Sys.Date(), ".tsv")
+write.table(sampled_counts, file = paste0("/path/to/cell2location_data/", file), sep = "\t", dec =".", col.names = TRUE, row.names = TRUE, quote = FALSE)
+
+cells2keep <- rownames(sampled_counts)
+sc_annot <- data.frame(row.names = cells2keep)
+sc_annot$bio_celltype <- allsamp$celltype_integrated[cells2keep] # meta.data column you want to deconvolve from normal_adrenal_integrated.RDS
+file <- paste0("SC_Normal_Adrenal_Annotation_sampled_", N, "_", id, "_", Sys.Date(), ".tsv")
+write.table(sc_annot, file = paste0("/path/to/cell2location_data/", file), sep = "\t", dec =".", col.names = TRUE, row.names = TRUE, quote = FALSE)
+
+
 ### Normalization without Integration
 
 dataset_normaladrenal$celltype_integrated <- dataset.combined@active.ident
