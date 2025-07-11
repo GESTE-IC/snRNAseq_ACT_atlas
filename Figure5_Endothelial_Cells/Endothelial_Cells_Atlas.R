@@ -44,7 +44,7 @@ dataset_endoth <- FindClusters(dataset_endoth, resolution = c(0.05, 0.1, 0.2, 0.
 # Test clustering stability
 clustering_info <- dataset_endoth@meta.data
 clustree(clustering_info, prefix="SCT_snn_res.")
-Idents(dataset_endoth) <- dataset_endoth$integrated_snn_res.0.1
+Idents(dataset_endoth) <- dataset_endoth$SCT_snn_res.0.1
 
 # UMAP visualization
 DimPlot(dataset_endoth, reduction = "umap", label = TRUE)
