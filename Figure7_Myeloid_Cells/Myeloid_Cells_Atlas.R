@@ -44,7 +44,7 @@ dataset_myelo <- FindClusters(dataset_myelo, resolution = c(0.05, 0.1, 0.2, 0.3,
 # Test clustering stability
 clustering_info <- dataset_myelo@meta.data
 clustree(clustering_info, prefix="SCT_snn_res.")
-Idents(dataset_myelo) <- dataset_myelo$integrated_snn_res.0.1
+Idents(dataset_myelo) <- dataset_myelo$SCT_snn_res.0.1
 
 # UMAP visualization
 DimPlot(dataset_myelo, reduction = "umap", label = TRUE)
