@@ -44,7 +44,7 @@ dataset_lympho <- FindClusters(dataset_lympho, resolution = c(0.05, 0.1, 0.15, 0
 # Test clustering stability
 clustering_info <- dataset_lympho@meta.data
 clustree(clustering_info, prefix="SCT_snn_res.")
-Idents(dataset_lympho) <- dataset_lympho$integrated_snn_res.0.2
+Idents(dataset_lympho) <- dataset_lympho$SCT_res.0.2
 
 # UMAP visualization
 DimPlot(dataset_lympho, reduction = "umap", label = TRUE)
